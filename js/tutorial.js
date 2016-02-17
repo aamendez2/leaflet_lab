@@ -54,7 +54,7 @@ function onMapClick(e) {
 }
 
 map.on('click', onMapClick);
-
+*/
 ///////geoJSON with Leaflet w/ MegaCities.geojson data ///////
 
 //function to instantiate the Leaflet map
@@ -73,8 +73,20 @@ function createMap(){
     //call getData function
     getData(map);
 };
-*/
+
 //function to retrieve the data and place it on the map
+function onEachFeature(feature, layer) {
+    //no property named popupContent; instead, create html string with all properties
+    var popupContent = "";
+    if (feature.properties) {
+        //loop to add feature property names and values to html string
+        for (var property in feature.properties){
+            popupContent += "<p>" + property + ": " + feature.properties[property] + "</p>";
+        }
+        layer.bindPopup(popupContent);
+    };
+};
+/*
 function getData(map){
     //load the data
     $.ajax("data/MegaCities.geojson", {
@@ -103,3 +115,4 @@ function getData(map){
 
 
 $(document).ready(createMap);
+*/
